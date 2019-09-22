@@ -1,0 +1,30 @@
+name: Docker Image CI
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_tag: ['10.16.3-alpine', '12.10.0-alpine']
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the Docker image
+      run: >
+        cat Dockerfile-template | sed 's/${version}/${{matrix.node_tag}}/g' > Dockerfile &&
+        docker build . --file Dockerfile --tag node-devtools
+    - name: Tag docker images
+      run: >
+        docker tag node-devtools jameskyburz/node:${{matrix.node_tag}}-devtools &&
+        docker tag node-devtools docker.pkg.github.com/jameskyburz/node-docker-devtools/node-devtools:${{matrix.node_tag}}-devtools
+    - name: Login to public docker registry
+      run: >
+        echo ${{ secrets.DOCKERHUB_PASSWORD }} |
+        docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+    - name: Publish to public registry
+      run: docker push jameskyburz/node:${{matrix.node_tag}}-devtools
+    - name: Login to github registry
+      run: >
+        echo ${{ secrets.GITHUB_REGISTRY_TOKEN }} |
+        docker login docker.pkg.github.com --username JamesKyburz --password-stdin
+    - name: Publish to github registry
+      run: docker push docker.pkg.github.com/jameskyburz/node-docker-devtools/node-devtools:${{matrix.node_tag}}-devtools
