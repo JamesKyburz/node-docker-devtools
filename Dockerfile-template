@@ -3,6 +3,6 @@ FROM node:${version}
 LABEL maintainer="James Kyburz james.kyburz@gmail.com"
 
 RUN \
-  apk add git g++ gcc libgcc libstdc++ linux-headers make python && \
+  apk add git g++ gcc libgcc libstdc++ linux-headers make python3 && \
   npm install npm@latest -g && \
   npm install node-gyp -g
