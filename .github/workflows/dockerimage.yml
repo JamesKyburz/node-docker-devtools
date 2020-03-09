@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node_tag: ['10.19.0-alpine3.11', '12.16.1-alpine3.11', '13.8.0-alpine3.11']
+        node_tag: ['10.19.0-alpine3.11', '12.16.1-alpine3.11', '13.10.1-alpine3.11']
     steps:
     - uses: actions/checkout@v1
     - name: Build the Docker image
