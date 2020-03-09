@@ -1,5 +1,7 @@
 # node-docker-devtools
 
+![Docker Image CI](https://github.com/JamesKyburz/node-docker-devtools/workflows/Docker%20Image%20CI/badge.svg)
+
 ## How to use this image
 
 ### Create a `Dockerfile`
