@@ -5,14 +5,14 @@
 ### Create a `Dockerfile`
 
 ```dockerfile
-FROM jameskyburz/node:12.14.1-alpine3.11-devtools as devtools
+FROM jameskyburz/node:12.16.1-alpine3.11-devtools as devtools
 
 WORKDIR /usr/src/app
 
 COPY package.json package-lock*.json npm-shrinkwrap*.json /usr/src/app/
 RUN npm i
 
-FROM node:12.14.1-alpine3.11
+FROM node:12.16.1-alpine3.11
 
 WORKDIR /usr/src/app
 
